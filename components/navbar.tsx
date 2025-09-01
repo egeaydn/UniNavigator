@@ -1,3 +1,4 @@
+'use client';
 import {
   Navbar as HeroUINavbar,
   NavbarContent,
@@ -16,6 +17,7 @@ import NextLink from "next/link";
 import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
+import { UserButton, SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { ThemeSwitch } from "@/components/theme-switch";
 import {
   TwitterIcon,
@@ -103,6 +105,14 @@ export const Navbar = () => {
           >
             Sponsor
           </Button>
+        </NavbarItem>
+        <NavbarItem>
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
+          <SignedOut>
+            <UserButton afterSignInUrl="/" /> 
+          </SignedOut>
         </NavbarItem>
       </NavbarContent>
 
