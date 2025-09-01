@@ -15,7 +15,7 @@ import { GithubIcon } from "@/components/icons";
 
 export default function Home() {
   return (
-    <section className="flex flex-col items-center justify-center gap-8 py-16 md:py-24 bg-gradient-to-br from-violet-900 via-indigo-900 to-black min-h-screen">
+  <section className="flex flex-col items-center justify-center gap-8 py-16 md:py-24 min-h-screen">
       <div className="inline-block max-w-2xl text-center justify-center animate-fade-in">
         <span className={title({ color: "foreground", class: "drop-shadow-lg text-white" })}>Türkiye'nin&nbsp;</span>
         <span className={title({ color: "violet", class: "drop-shadow-lg" })}>Üniversiteleri&nbsp;</span>
@@ -73,10 +73,10 @@ type University = {
 
 function UniversitySelect() {
   const [universities, setUniversities] = useState<University[]>([]);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
   const perPage = 20;
 
   useEffect(() => {
@@ -96,12 +96,26 @@ function UniversitySelect() {
       .finally(() => setLoading(false));
   }, []);
 
-  const totalPages = Math.ceil(universities.length / perPage);
-  const pagedUniversities = universities.slice((page - 1) * perPage, page * perPage);
+  // Filtreleme
+  const filtered = universities.filter(u =>
+    u.name.toLowerCase().includes(search.toLowerCase())
+  );
+  const totalPages = Math.ceil(filtered.length / perPage);
+  const pagedUniversities = filtered.slice((page - 1) * perPage, page * perPage);
 
   return (
-    <div className="w-full max-w-lg mt-12 bg-white/80 rounded-xl shadow-lg p-8 border border-violet-200">
-      <label htmlFor="university-select" className="block mb-4 font-bold text-violet-900 text-lg">Üniversite Seçin</label>
+  <div className="w-full flex flex-col items-center justify-start py-12 m-0 p-0">
+      <div className="mb-8 w-full max-w-4xl flex flex-col md:flex-row gap-4 items-center justify-between">
+        <label htmlFor="search" className="font-bold text-violet-100 text-lg">Üniversite Ara</label>
+        <input
+          id="search"
+          type="text"
+          value={search}
+          onChange={e => { setSearch(e.target.value); setPage(1); }}
+          placeholder="Üniversite adı ile filtrele..."
+          className="w-full md:w-1/2 py-3 px-4 border-2 border-violet-400 rounded-lg bg-white text-violet-900 font-semibold focus:ring-2 focus:ring-violet-600"
+        />
+      </div>
       {loading ? (
         <div className="flex items-center justify-center gap-2 text-violet-700 animate-pulse">
           <svg className="w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
@@ -111,43 +125,34 @@ function UniversitySelect() {
         <div className="text-red-600 font-semibold text-center py-4 border border-red-200 rounded bg-red-50">{error}</div>
       ) : (
         <>
-          <select
-            id="university-select"
-            className="w-full py-3 px-4 border-2 border-violet-400 rounded-lg bg-white text-violet-900 font-semibold focus:ring-2 focus:ring-violet-600"
-            value={selectedIndex ?? ""}
-            onChange={(e) => setSelectedIndex(Number(e.target.value))}
-          >
-            <option value="" disabled>Bir üniversite seçin...</option>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-6xl mx-auto">
             {pagedUniversities.map((uni, idx) => (
-              <option key={uni.name} value={idx}>{uni.name}</option>
+              <div key={uni.name} className="bg-background rounded-2xl shadow-xl p-6 border border-default-200 flex flex-col items-start justify-between h-full transition-all hover:scale-[1.03]">
+                <h2 className="text-xl font-bold text-primary mb-2">{uni.name}</h2>
+                <p className="text-md text-default-700 mb-2">{uni.country}</p>
+                <a href={uni.web_pages[0]} target="_blank" rel="noopener noreferrer" className="text-primary underline font-semibold hover:text-violet-600 transition-colors">
+                  Web Sitesi
+                </a>
+              </div>
             ))}
-          </select>
-          <div className="flex justify-between items-center mt-4">
-            <button
-              className="px-4 py-2 bg-violet-600 text-white rounded disabled:opacity-50"
+          </div>
+          <div className="flex justify-center items-center mt-8 w-full max-w-4xl mx-auto gap-4">
+             <button
+              className="px-5 py-2 rounded-full bg-primary text-white font-semibold shadow hover:bg-violet-700 transition-colors disabled:opacity-50"
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
             >
-              Önceki
+              ← Önceki
             </button>
-            <span className="font-semibold text-violet-900">Sayfa {page} / {totalPages}</span>
+            <span className="font-semibold text-default-700 text-lg">Sayfa {page} / {totalPages}</span>
             <button
-              className="px-4 py-2 bg-violet-600 text-white rounded disabled:opacity-50"
+              className="px-5 py-2 rounded-full bg-primary text-white font-semibold shadow hover:bg-violet-700 transition-colors disabled:opacity-50"
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page === totalPages}
             >
-              Sonraki
+              Sonraki →
             </button>
           </div>
-          {selectedIndex !== null && pagedUniversities[selectedIndex] && (
-            <div className="mt-8 p-6 border-2 border-violet-300 rounded-xl bg-violet-50 shadow">
-              <h2 className="text-2xl font-bold text-violet-900 mb-2">{pagedUniversities[selectedIndex].name}</h2>
-              <p className="text-md text-violet-700 mb-2">{pagedUniversities[selectedIndex].country}</p>
-              <a href={pagedUniversities[selectedIndex].web_pages[0]} target="_blank" rel="noopener noreferrer" className="text-violet-700 underline font-semibold">
-                Web Sitesi
-              </a>
-            </div>
-          )}
         </>
       )}
     </div>
