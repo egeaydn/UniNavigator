@@ -11,7 +11,6 @@ export default function Footer() {
       <div className="flex gap-6 justify-center mb-4">
         <Link isExternal href={siteConfig.links.github} className="text-default-500 hover:text-primary transition-colors">GitHub</Link>
         <Link isExternal href={siteConfig.links.docs} className="text-default-500 hover:text-primary transition-colors">Dokümantasyon</Link>
-        <Link isExternal href={siteConfig.links.twitter} className="text-default-500 hover:text-primary transition-colors">Twitter</Link>
       </div>
       <span className="text-xs text-default-400">© {new Date().getFullYear()} UniNavigator. Tüm hakları saklıdır.</span>
     </footer>

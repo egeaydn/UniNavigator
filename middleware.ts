@@ -5,6 +5,7 @@ export default clerkMiddleware();
 
 export const config = {
   matcher: [
-    '/(.*)'
+    // Tüm korumalı route'lar
+    '/((?!sign-in|sign-up).*)',
   ],
 };
