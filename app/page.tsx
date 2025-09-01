@@ -8,6 +8,7 @@ import { Link } from "@heroui/link";
 import { Snippet } from "@heroui/snippet";
 import { Code } from "@heroui/code";
 import { button as buttonStyles } from "@heroui/theme";
+import Footer from "@/components/footer";
 
 import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
@@ -62,18 +63,7 @@ export default function Home() {
           <UniversitySelect />
         </div>
       </section>
-      <footer className="w-full bg-background border-t border-default-200 py-8 mt-8 flex flex-col items-center text-center">
-        <div className="flex flex-col md:flex-row gap-4 items-center justify-center mb-4">
-          <span className="text-lg font-semibold text-primary">UniNavigator</span>
-          <span className="text-default-500">Türkiye'nin üniversitelerini keşfet, karşılaştır, incele.</span>
-        </div>
-        <div className="flex gap-6 justify-center mb-4">
-          <Link isExternal href={siteConfig.links.github} className="text-default-500 hover:text-primary transition-colors">GitHub</Link>
-          <Link isExternal href={siteConfig.links.docs} className="text-default-500 hover:text-primary transition-colors">Dokümantasyon</Link>
-          <Link isExternal href={siteConfig.links.twitter} className="text-default-500 hover:text-primary transition-colors">Twitter</Link>
-        </div>
-        <span className="text-xs text-default-400">© {new Date().getFullYear()} UniNavigator. Tüm hakları saklıdır.</span>
-      </footer>
+      <Footer />
     </>
   );
 }
@@ -120,7 +110,7 @@ function UniversitySelect() {
   return (
   <div className="w-full flex flex-col items-center justify-start py-12 m-0 p-0">
       <div className="mb-8 w-full max-w-4xl flex flex-col md:flex-row gap-4 items-center justify-between">
-        <label htmlFor="search" className="font-bold text-violet-100 text-lg">Üniversite Ara</label>
+        <label htmlFor="search" className="font-bold  text-lg">Üniversite Ara</label>
         <input
           id="search"
           type="text"
