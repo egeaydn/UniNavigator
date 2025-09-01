@@ -15,52 +15,66 @@ import { GithubIcon } from "@/components/icons";
 
 export default function Home() {
   return (
-  <section className="flex flex-col items-center justify-center gap-8 py-16 md:py-24 min-h-screen">
-      <div className="inline-block max-w-2xl text-center justify-center animate-fade-in">
-        <span className={title({ color: "foreground", class: "drop-shadow-lg text-white" })}>Türkiye'nin&nbsp;</span>
-        <span className={title({ color: "violet", class: "drop-shadow-lg" })}>Üniversiteleri&nbsp;</span>
-        <br />
-        <span className={title({ color: "foreground", class: "drop-shadow-lg text-white" })}>
-          Modern, hızlı ve şık bir arayüzle keşfet.
-        </span>
-        <div className={subtitle({ class: "mt-4 text-gray-200" })}>
-          HeroUI + Next.js + Clerk + Sanity ile profesyonel deneyim.
-        </div>
-      </div>
-
-      <div className="flex gap-6 justify-center mt-6">
-        <Link
-          isExternal
-          className={buttonStyles({
-            color: "primary",
-            radius: "full",
-            variant: "shadow",
-            class: "text-lg px-8 py-3 font-bold"
-          })}
-          href={siteConfig.links.docs}
-        >
-          Dokümantasyon
-        </Link>
-        <Link
-          isExternal
-          className={buttonStyles({ variant: "bordered", radius: "full", class: "text-lg px-8 py-3 font-bold" })}
-          href={siteConfig.links.github}
-        >
-          <GithubIcon size={24} />
-          GitHub
-        </Link>
-      </div>
-
-      <div className="mt-12 w-full flex flex-col items-center">
-        <Snippet hideCopyButton hideSymbol variant="bordered" className="mb-8 bg-black/40 text-white border-violet-700">
-          <span>
-            <Code color="primary">Türkiye'deki üniversiteleri seç, detaylarını incele!</Code>
+    <>
+      <section className="flex flex-col items-center justify-center gap-8 py-16 md:py-24 min-h-screen">
+        <div className="inline-block max-w-2xl text-center justify-center animate-fade-in">
+          <span className={title({ color: "foreground", class: "drop-shadow-lg text-primary" })}>Türkiye'nin&nbsp;</span>
+          <span className={title({ color: "violet", class: "drop-shadow-lg" })}>Üniversiteleri&nbsp;</span>
+          <br />
+          <span className={title({ color: "foreground", class: "drop-shadow-lg text-primary" })}>
+            Modern, hızlı ve şık bir arayüzle keşfet.
           </span>
-        </Snippet>
-        {/* Üniversiteler API entegrasyonu */}
-        <UniversitySelect />
-      </div>
-    </section>
+          <div className={subtitle({ class: "mt-4 text-default-500" })}>
+            HeroUI + Next.js + Clerk + Sanity ile profesyonel deneyim.
+          </div>
+        </div>
+
+        <div className="flex gap-6 justify-center mt-6">
+          <Link
+            isExternal
+            className={buttonStyles({
+              color: "primary",
+              radius: "full",
+              variant: "shadow",
+              class: "text-lg px-8 py-3 font-bold"
+            })}
+            href={siteConfig.links.docs}
+          >
+            Dokümantasyon
+          </Link>
+          <Link
+            isExternal
+            className={buttonStyles({ variant: "bordered", radius: "full", class: "text-lg px-8 py-3 font-bold" })}
+            href={siteConfig.links.github}
+          >
+            <GithubIcon size={24} />
+            GitHub
+          </Link>
+        </div>
+
+        <div className="mt-12 w-full flex flex-col items-center">
+          <Snippet hideCopyButton hideSymbol variant="bordered" className="mb-8 bg-background text-primary border-primary">
+            <span>
+              <Code color="primary">Türkiye'deki üniversiteleri seç, detaylarını incele!</Code>
+            </span>
+          </Snippet>
+          {/* Üniversiteler API entegrasyonu */}
+          <UniversitySelect />
+        </div>
+      </section>
+      <footer className="w-full bg-background border-t border-default-200 py-8 mt-8 flex flex-col items-center text-center">
+        <div className="flex flex-col md:flex-row gap-4 items-center justify-center mb-4">
+          <span className="text-lg font-semibold text-primary">UniNavigator</span>
+          <span className="text-default-500">Türkiye'nin üniversitelerini keşfet, karşılaştır, incele.</span>
+        </div>
+        <div className="flex gap-6 justify-center mb-4">
+          <Link isExternal href={siteConfig.links.github} className="text-default-500 hover:text-primary transition-colors">GitHub</Link>
+          <Link isExternal href={siteConfig.links.docs} className="text-default-500 hover:text-primary transition-colors">Dokümantasyon</Link>
+          <Link isExternal href={siteConfig.links.twitter} className="text-default-500 hover:text-primary transition-colors">Twitter</Link>
+        </div>
+        <span className="text-xs text-default-400">© {new Date().getFullYear()} UniNavigator. Tüm hakları saklıdır.</span>
+      </footer>
+    </>
   );
 }
 
@@ -127,7 +141,11 @@ function UniversitySelect() {
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-6xl mx-auto">
             {pagedUniversities.map((uni, idx) => (
-              <div key={uni.name} className="bg-background rounded-2xl shadow-xl p-6 border border-default-200 flex flex-col items-start justify-between h-full transition-all hover:scale-[1.03]">
+              <div
+                key={uni.name}
+                className="bg-background rounded-2xl shadow-xl p-6 border border-default-200 flex flex-col items-start justify-between h-full transition-all hover:scale-[1.03] animate-fade-in"
+                style={{ animationDelay: `${idx * 0.08}s` }}
+              >
                 <h2 className="text-xl font-bold text-primary mb-2">{uni.name}</h2>
                 <p className="text-md text-default-700 mb-2">{uni.country}</p>
                 <a href={uni.web_pages[0]} target="_blank" rel="noopener noreferrer" className="text-primary underline font-semibold hover:text-violet-600 transition-colors">
