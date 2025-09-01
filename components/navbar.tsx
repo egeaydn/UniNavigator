@@ -111,7 +111,15 @@ export const Navbar = () => {
             <UserButton afterSignOutUrl="/" />
           </SignedIn>
           <SignedOut>
-            <UserButton afterSignInUrl="/" /> 
+            <Button
+              as={NextLink}
+              href="/sign-in"
+              color="primary"
+              variant="flat"
+              className="font-semibold"
+            >
+              Giriş Yap
+            </Button>
           </SignedOut>
         </NavbarItem>
       </NavbarContent>

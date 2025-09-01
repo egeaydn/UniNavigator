@@ -110,14 +110,17 @@ function UniversitySelect() {
   return (
   <div className="w-full flex flex-col items-center justify-start py-12 m-0 p-0">
       <div className="mb-8 w-full max-w-4xl flex flex-col md:flex-row gap-4 items-center justify-between">
-        <label htmlFor="search" className="font-bold  text-lg">Üniversite Ara</label>
+        <label htmlFor="search" className="font-bold text-primary text-lg flex items-center gap-2">
+          <svg className="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"/></svg>
+          Üniversite Ara
+        </label>
         <input
           id="search"
           type="text"
           value={search}
           onChange={e => { setSearch(e.target.value); setPage(1); }}
           placeholder="Üniversite adı ile filtrele..."
-          className="w-full md:w-1/2 py-3 px-4 border-2 border-violet-400 rounded-lg bg-white text-violet-900 font-semibold focus:ring-2 focus:ring-violet-600"
+          className="w-full md:w-1/2 py-3 px-4 border-2 border-gradient-to-r from-primary to-violet-500 rounded-lg bg-background text-primary font-semibold focus:ring-2 focus:ring-violet-600 transition-all duration-200 shadow-lg"
         />
       </div>
       {loading ? (
@@ -133,10 +136,13 @@ function UniversitySelect() {
             {pagedUniversities.map((uni, idx) => (
               <div
                 key={uni.name}
-                className="bg-background rounded-2xl shadow-xl p-6 border border-default-200 flex flex-col items-start justify-between h-full transition-all hover:scale-[1.03] animate-fade-in"
+                className="bg-background rounded-2xl shadow-2xl p-6 border-2 border-transparent bg-clip-padding flex flex-col items-start justify-between h-full transition-all hover:scale-[1.05] hover:border-gradient-to-r hover:from-primary hover:to-violet-500 animate-fade-in"
                 style={{ animationDelay: `${idx * 0.08}s` }}
               >
-                <h2 className="text-xl font-bold text-primary mb-2">{uni.name}</h2>
+                <div className="flex items-center gap-2 mb-2">
+                  <svg className="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                  <h2 className="text-xl font-bold text-primary mb-0">{uni.name}</h2>
+                </div>
                 <p className="text-md text-default-700 mb-2">{uni.country}</p>
                 <a href={uni.web_pages[0]} target="_blank" rel="noopener noreferrer" className="text-primary underline font-semibold hover:text-violet-600 transition-colors">
                   Web Sitesi
