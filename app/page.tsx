@@ -81,11 +81,16 @@ function UniversitySelect() {
   const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [country, setCountry] = useState<string>("Turkey");
   const perPage = 20;
+
+  const countryList = [
+    "Turkey", "United States", "United Kingdom", "Germany", "France", "Canada", "Australia", "Japan", "China", "Italy", "Spain", "Netherlands", "Sweden", "Finland", "India", "Russia", "Brazil", "South Korea", "Switzerland", "Poland", "Greece"
+  ];
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://universities.hipolabs.com/search?country=Turkey")
+    fetch(`http://universities.hipolabs.com/search?country=${encodeURIComponent(country)}`)
       .then((res) => {
         if (!res.ok) throw new Error("API erişim hatası");
         return res.json();
@@ -93,12 +98,13 @@ function UniversitySelect() {
       .then((data) => {
         setUniversities(data);
         setError(null);
+        setPage(1);
       })
       .catch(() => {
         setError("Üniversite verileri alınamadı. Lütfen daha sonra tekrar deneyin.");
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [country]);
 
   // Filtreleme
   const filtered = universities.filter(u =>
@@ -108,20 +114,36 @@ function UniversitySelect() {
   const pagedUniversities = filtered.slice((page - 1) * perPage, page * perPage);
 
   return (
-  <div className="w-full flex flex-col items-center justify-start py-12 m-0 p-0">
+    <div className="w-full flex flex-col items-center justify-start py-12 m-0 p-0">
       <div className="mb-8 w-full max-w-4xl flex flex-col md:flex-row gap-4 items-center justify-between">
-        <label htmlFor="search" className="font-bold text-primary text-lg flex items-center gap-2">
-          <svg className="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"/></svg>
-          Üniversite Ara
-        </label>
-        <input
-          id="search"
-          type="text"
-          value={search}
-          onChange={e => { setSearch(e.target.value); setPage(1); }}
-          placeholder="Üniversite adı ile filtrele..."
-          className="w-full md:w-1/2 py-3 px-4 border-2 border-gradient-to-r from-primary to-violet-500 rounded-lg bg-background text-primary font-semibold focus:ring-2 focus:ring-violet-600 transition-all duration-200 shadow-lg"
-        />
+        <div className="flex flex-col md:flex-row gap-4 items-center w-full">
+          <label htmlFor="country" className="font-bold text-primary text-lg flex items-center gap-2">
+            <svg className="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+            Ülke Seç
+          </label>
+          <select
+            id="country"
+            value={country}
+            onChange={e => setCountry(e.target.value)}
+            className="w-full md:w-1/3 py-3 px-4 border-2 border-primary rounded-lg bg-background text-primary font-semibold focus:ring-2 focus:ring-violet-600 transition-all duration-200 shadow-lg"
+          >
+            {countryList.map(c => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
+          <label htmlFor="search" className="font-bold text-primary text-lg flex items-center gap-2">
+            <svg className="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"/></svg>
+            Üniversite Ara
+          </label>
+          <input
+            id="search"
+            type="text"
+            value={search}
+            onChange={e => { setSearch(e.target.value); setPage(1); }}
+            placeholder="Üniversite adı ile filtrele..."
+            className="w-full md:w-1/2 py-3 px-4 border-2 border-gradient-to-r from-primary to-violet-500 rounded-lg bg-background text-primary font-semibold focus:ring-2 focus:ring-violet-600 transition-all duration-200 shadow-lg"
+          />
+        </div>
       </div>
       {loading ? (
         <div className="flex items-center justify-center gap-2 text-violet-700 animate-pulse">
