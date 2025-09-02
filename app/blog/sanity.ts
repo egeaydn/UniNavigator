@@ -1,12 +1,5 @@
-import sanityClient from '@/config/sanity';
+import { client } from '@/sanity/lib/client';
 
 export async function getPosts() {
-  return await sanityClient.fetch(`*[_type == "post"] | order(_createdAt desc){
-    _id,
-    title,
-    slug,
-    body,
-    mainImage,
-    _createdAt
-  }`);
+  return await client.fetch(`*[_type == "post"] | order(_createdAt desc)`);
 }
