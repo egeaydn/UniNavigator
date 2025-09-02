@@ -89,22 +89,23 @@ function UniversitySelect() {
   ];
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`http://universities.hipolabs.com/search?country=${encodeURIComponent(country)}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("API erişim hatası");
-        return res.json();
-      })
-      .then((data) => {
-        setUniversities(data);
-        setError(null);
-        setPage(1);
-      })
-      .catch(() => {
-        setError("Üniversite verileri alınamadı. Lütfen daha sonra tekrar deneyin.");
-      })
-      .finally(() => setLoading(false));
-  }, [country]);
+  setLoading(true);
+  fetch(`/api/universities?country=${encodeURIComponent(country)}`)
+    .then((res) => {
+      if (!res.ok) throw new Error("API erişim hatası");
+      return res.json();
+    })
+    .then((data) => {
+      setUniversities(data);
+      setError(null);
+      setPage(1);
+    })
+    .catch(() => {
+      setError("Üniversite verileri alınamadı. Lütfen daha sonra tekrar deneyin.");
+    })
+    .finally(() => setLoading(false));
+}, [country]);
+
 
   // Filtreleme
   const filtered = universities.filter(u =>
