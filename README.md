@@ -1,53 +1,75 @@
-# Next.js & HeroUI Template
+# UniNavigator
 
-This is a template for creating applications using Next.js 14 (app directory) and HeroUI (v2).
+🚀 **Türkiye ve Dünya Üniversiteleri için Modern Next.js Uygulaması**
 
-[Try it on CodeSandbox](https://githubbox.com/heroui-inc/heroui/next-app-template)
+---
 
-## Technologies Used
+## Özellikler
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [HeroUI v2](https://heroui.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+- 🌍 Farklı ülkelerden üniversiteleri arama ve listeleme
+- 🔎 Akıllı arama ve filtreleme
+- 🖥️ Modern, animasyonlu ve responsive arayüz (HeroUI + TailwindCSS)
+- 🌓 Tema desteği (dark/light)
+- 🛡️ Clerk ile güvenli kimlik doğrulama (login/signup)
+- 📦 Next.js 15, React 18, Vercel deploy uyumlu
+- 🏷️ Pagination, grid ve detaylı kartlar
+- 🦾 Tamamen TypeScript ile yazılmıştır
 
-## How to Use
+---
 
-### Use the template with create-next-app
+## Ekran Görüntüleri
 
-To create a new project based on this template using `create-next-app`, run the following command:
+![Ana Sayfa](public/next.svg)
 
-```bash
-npx create-next-app -e https://github.com/heroui-inc/next-app-template
-```
+---
 
-### Install dependencies
-
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+## Kurulum
 
 ```bash
+# Bağımlılıkları yükle
 npm install
-```
 
-### Run the development server
+# Ortam değişkenlerini ayarla (.env.local)
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
 
-```bash
+# Geliştirme sunucusunu başlat
 npm run dev
 ```
 
-### Setup pnpm (optional)
+---
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+## Kullanım
 
-```bash
-public-hoist-pattern[]=*@heroui/*
-```
+- Ülke seçici ile istediğiniz ülkenin üniversitelerini listeleyin
+- Arama kutusuyla üniversite adına göre filtreleyin
+- Giriş yaparak ek özellikleri kullanın
+- Footer ve navbar ile modern, profesyonel bir deneyim yaşayın
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+---
 
-## License
+## Teknolojiler
 
-Licensed under the [MIT license](https://github.com/heroui-inc/next-app-template/blob/main/LICENSE).
+- **Next.js 15**
+- **React 18**
+- **TailwindCSS**
+- **HeroUI**
+- **Clerk**
+- **TypeScript**
+
+---
+
+## Katkı
+
+Pull request ve issue açarak projeye katkı sağlayabilirsiniz.
+
+---
+
+## Lisans
+
+MIT
+
+---
+
+## İletişim
+
+Her türlü soru ve öneri için [GitHub](https://github.com/egeaydn/UniNavigator) üzerinden ulaşabilirsiniz.
